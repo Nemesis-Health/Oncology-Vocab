@@ -1,6 +1,6 @@
 # Mapping Logic for Oncology Vocabularies
 
-This document outlines the mapping logic for oncology vocabularies found in files provided by the CUSTOMER. The goal of this mapping is to ensure consistent and accurate representation of oncology concepts, supporting comprehensive data analysis and interoperability.
+This document outlines the mapping logic for oncology vocabularies. The goal of this mapping is to ensure consistent and accurate representation of oncology concepts, supporting comprehensive data analysis and interoperability.
 
 ## Key Mapping Principles
 
