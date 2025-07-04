@@ -31,4 +31,6 @@ Just delete it for now.
 
 8. Run [`QA tests`](https://github.com/OHDSI/Vocabulary-v5.0/tree/a9bdf5efd77208110c6275407c718b389e21010e/working/packages/QA_TESTS)
 
-9. Run [`pConceptAncestor()`](https://github.com/OHDSI/Vocabulary-v5.0/blob/master/working/packages/vocabulary_pack/pConceptAncestor.sql) function. The function allows to build a full concept ancestor.
+9. Run [`mappings_change_lookup.sql`](https://github.com/Nemesis-Health/Oncology-Vocab/blob/onco-vocabulary-refresh/sql/Oncology%20Unified%20Load%20Stage/Tests/mappings_change_lookup.sql) to look for changes in mappings
+
+10. Run [`pConceptAncestor()`](https://github.com/OHDSI/Vocabulary-v5.0/blob/master/working/packages/vocabulary_pack/pConceptAncestor.sql) function. The function allows to build a full concept ancestor.
