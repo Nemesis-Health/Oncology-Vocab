@@ -1,6 +1,6 @@
 # Analysis of Vocabulary Updates
 
-Table 1 summarizes how concepts within various vocabularies have changed their standardness status when comparing newly refreshed oncology vocabularies to a baseline version.
+Table 1 summarizes how concepts within vocabularies (HCPCD, ICDO3, LOINC, NAACCR, SNOMED) have changed their standardness after generic_update().
 
 |Vocabulary ID|Old Standard Concept|New Standard Concept|Count|
 |---|---|---|---|
@@ -10,7 +10,7 @@ Table 1 summarizes how concepts within various vocabularies have changed their s
 |NAACCR|Standard|Non-standard with mapping|141|
 |SNOMED|Standard|Non-standard with mapping|62|
 
-Table 1. Differences in standardness between New and Baseline Oncology vocabularies
+Table 1. Difference in standardness after generic_update().
 
 
 
@@ -18,7 +18,7 @@ Table 1. Differences in standardness between New and Baseline Oncology vocabular
 
 
 
-Table 2 outlines how the target domains for concepts have changed between newly refreshed and baseline oncology vocabularies. It indicates, for each vocabulary, the original domain and the new domain for concepts that have undergone
+Table 2 outlines target domain changes withing vocabularies (HCPCD, ICDO3, LOINC, NAACCR, SNOMED) after generic_update().
 
 |Vocabulary ID|Old Domain|New Domain|Count|
 |---|---|---|---|
@@ -50,4 +50,26 @@ Table 2 outlines how the target domains for concepts have changed between newly 
 |SNOMED|Condition|Measurement|7|
 |SNOMED|No mapping|Device|5|
 
-Table 2. Differences in target domains between New and Baseline Oncology vocabularies
+Table 2. Differences in target domains after generic_update().
+
+
+
+---
+
+
+
+Table 3 outlines the pairs of Standard Concept (S), non-Standard Concept (NULL) and Classification Concept (C) concepts among concept_ancestors in dev_onco (working scheme) and devv5
+
+|Category|dev_onco|devv5|Difference (absoulte)|Difference (percent)|
+|---|---|---|---|---|
+|C-C|1606830|1599309|7521|0,00470265596|
+|C-S|67790443|67662364|128079|0,001892913467|
+|C-NULL|724|724|0|0|
+|S-C|177325|177391|-66|-0,0003720594619|
+|S-S|31264790|31266150|-1360|-0,00004349752048|
+|NULL-S|90|123|-33|-0,2682926829|
+|NULL-NULL|NULL|1|-1|-1|
+
+Table 3. Concept_ancestor difference among schemas
+
+**Note!** All non-Standard entities among concept_acnestor are represented by ATC, RxNorm and RxNorm Extension drugs and do not relate to Oncology vocabularies refresh.
