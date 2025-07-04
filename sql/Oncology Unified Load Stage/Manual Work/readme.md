@@ -4,10 +4,10 @@ This guide outlines the steps for setting up and updating the manual tables requ
 
 ## Initial Setup
 
-1. Creating the necessary manual tables in your database
+1. Create the necessary manual tables in your database.
 
 * Execute the `create_manual_tables.sql` script.
-* Fill the tables using .CSV attached
+* Fill the tables using .CSV attached [add link to .CSV at https://ohdsi.github.io/OncologyWG/]
 
 2. Clean up existing data and update manual tables with new mappings.
 
