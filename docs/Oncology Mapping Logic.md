@@ -83,18 +83,7 @@ This correction ensures semantic integrity and improves analytical validity in c
 | :------------------ | :-------------------- | :----------------- | :--------------------- | :--------------- | :------------------ | :-------------------- | :----------------- | :--------------------- |
 | 4127500             | Stage 0               | Meas Value         | SNOMED                 | Maps to          | 1634946             | Stage 0               | Measurement        | Cancer Modifier        |
 
-### 4. Improvements in Location Concepts
-
-Some location-related SNOMED concepts used in oncology ETLs are overly broad or non-specific. Mapping them to more precise admission-related concepts improves the clinical granularity and semantic hierarchy, which benefits location-based analytics (e.g., identifying patients admitted to specialized cancer departments).
-
-**Example:**
-
-| source\_concept\_id | source\_concept\_code | source\_concept\_name         | source\_domain\_id | relationship\_id | target\_concept\_id | target\_concept\_code | target\_concept\_name               | target\_domain\_id |
-| :------------------ | :-------------------- | :--------------------------- | :----------------- | :--------------- | :------------------ | :-------------------- | :--------------------------------- | :----------------- |
-| 4147096             | 309948006             | Pediatric oncology department | Observation        | Maps to          | 4138940             | 305390000             | Admission to pediatric oncology department | Observation        |
-| 4147086             | 309903007             | Radiotherapy department      | Observation        | Maps to          | 4202016             | 308252005             | Admission to radiotherapy department | Observation        |
-
-### 5. Standardizing and Unifying Metastasis and Lymph Node Concepts
+### 4. Standardizing and Unifying Metastasis and Lymph Node Concepts
 
 SNOMED contains multiple redundant and precoordinated concepts describing metastatic spread and lymph node involvement. These lead to ambiguity, inconsistent staging, and incorrect patient cohorting for oncology research.
 
@@ -115,62 +104,6 @@ SNOMED metastasis-related and lymph node concepts must be uniformly mapped to st
 | 4161021 | 399462009 | Secondary tumor site | Observation | SNOMED | Observable Entity | Maps to | 36769180 | OMOP4998856 | Metastasis | Measurement | Cancer Modifier | Metastasis |
 | 4168514 | 417957003 | Uveal metastasis | Measurement | SNOMED | Staging / Scales | Maps to | 35225584 | OMOP5031993 | Metastasis to uveal tract | Measurement | Cancer Modifier | Metastasis |
 | 4154265 | 371512006 | Presence of direct invasion by primary malignant neoplasm to lymphatic vessel and/or small blood vessel | Observation | SNOMED | Observable Entity | Maps to | 36768891 | OMOP4998568 | Lymphovascular Invasion (LVI) | Measurement | Cancer Modifier | Extension/Invasion |
-
-### 6. Post-Coordination mappings with Morph Abnormality `source_concept_class`: Morph Abnormality → Condition + Cancer Modifier
-
-Concepts combining tumor histology/topography with metastatic status should be split for clarity and modularity. These mappings involve post-coordination, where pre-coordinated SNOMED concepts are split into separate **Condition** and **Cancer Modifier** concepts.
-
-**Mapping Logic**
-If a condition concept precisely matching the source meaning (e.g., specifically metastatic adenocarcinoma rather than generic adenocarcinoma) is available, it should be selected as the target condition concept.
-
-**Example 1 - Precise matching concept available:**
-
-| source\_concept\_id | source\_concept\_name | source\_domain\_id | source\_concept\_class | source\_vocabulary\_id | relationship\_id | target\_concept\_id | target\_concept\_name | target\_domain\_id | target\_concept\_class | target\_vocabulary\_id |
-| :------------------ | :-------------------- | :----------------- | :-------------------- | :--------------------- | :--------------- | :------------------ | :-------------------- | :----------------- | :-------------------- | :--------------------- |
-| 4263459             | Adenocarcinoma, metastatic | Observation        | Morph Abnormality     | SNOMED                 | Maps to          | 604497              | Metastatic adenocarcinoma | Condition          | Disorder              | SNOMED                 |
-| 4263459             | Adenocarcinoma, metastatic | Observation        | Morph Abnormality     | SNOMED                 | Maps to          | 36769180            | Metastasis            | Measurement        | Metastasis            | Cancer Modifier        |
-
-If a specific concept describing the exact metastatic nature of the neoplasm is unavailable, the nearest clinically relevant and general concept (Malignant epithelial neoplasm) is chosen. The modifier Metastasis is separately mapped to maintain clinical precision and analytical granularity.
-
-**Example 2 - Precise matching concept not available (nearest meaning used):**
-
-| source\_concept\_id | source\_concept\_name | source\_domain\_id | source\_concept\_class | source\_vocabulary\_id | relationship\_id | target\_concept\_id | target\_concept\_name | target\_domain\_id | target\_concept\_class | target\_vocabulary\_id |
-| :------------------ | :-------------------- | :----------------- | :-------------------- | :--------------------- | :--------------- | :------------------ | :-------------------- | :----------------- | :-------------------- | :--------------------- |
-| 4194691             | Carcinoma, metastatic | Observation        | Morph Abnormality     | SNOMED                 | Maps to          | 36716620            | Malignant epithelial neoplasm | Condition          | Disorder              | SNOMED                 |
-| 4194691             | Carcinoma, metastatic | Observation        | Morph Abnormality     | SNOMED                 | Maps to          | 36769180            | Metastasis            | Measurement        | Metastasis            | Cancer Modifier        |
-
-**Other mappings with Post-coordination (Morph Abnormality → Condition + Cancer Modifier)**
-Although currently mappings with Morph Abnormality are not considered for implementation, these mappings should be reviewed.
-
-| SOURCE | | | | | | TARGET | | | | |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **concept\_id** | **concept\_name** | **domain\_id** | **concept\_class** | **vocabulary\_id** | **relationship\_id** | **concept\_id** | **concept\_name** | **domain\_id** | **concept\_class** | **vocabulary\_id** |
-| 4183217 | Choriocarcinoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 4092517 | Choriocarcinoma | Condition | Disorder | SNOMED |
-| 4183217 | Choriocarcinoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 4162254 | Kaposi’s sarcoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 434584 | Kaposi’s sarcoma (clinical) | Condition | Disorder | SNOMED |
-| 4162254 | Kaposi’s sarcoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 4004515 | Malignant lymphoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 432571 | Malignant lymphoma | Condition | Disorder | SNOMED |
-| 4004515 | Malignant lymphoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 4157460 | Malignant melanoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 40481908 | Metastatic malignant melanoma | Condition | Disorder | SNOMED |
-| 4157460 | Malignant melanoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 46270968 | Metastatic hepatocellular carcinoma | Observation | Morph Abnormality | SNOMED | Maps to | 37162050 | Metastatic hepatocellular carcinoma | Condition | Disorder | SNOMED |
-| 46270968 | Metastatic hepatocellular carcinoma | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 46273704 | Metastatic Mullerian mixed tumor | Observation | Morph Abnormality | SNOMED | Maps to | 42513618 | Neoplasm defined only by histology: Carcinosarcoma, NOS | Condition | ICDO Condition | ICDO3 |
-| 46273704 | Metastatic Mullerian mixed tumor | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 4181016 | Metastatic signet ring cell carcinoma | Observation | Morph Abnormality | SNOMED | Maps to | 42513333 | Neoplasm defined only by histology: Signet ring cell carcinoma | Condition | ICDO Condition | ICDO3 |
-| 4181016 | Metastatic signet ring cell carcinoma | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 46271141 | Metastatic small cell carcinoma | Observation | Morph Abnormality | SNOMED | Maps to | 37165127 | Metastatic small cell neuroendocrine carcinoma | Condition | Disorder | SNOMED |
-| 46271141 | Metastatic small cell carcinoma | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 4032806 | Neoplasm, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 443392 | Malignant neoplastic disease | Condition | Disorder | SNOMED |
-| 4032806 | Neoplasm, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 4163000 | Sarcoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 40480137 | Metastatic sarcoma | Condition | Disorder | SNOMED |
-| 4163000 | Sarcoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 4271714 | Squamous cell carcinoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 4300118 | Squamous cell carcinoma | Condition | Disorder | SNOMED |
-| 4271714 | Squamous cell carcinoma, metastatic | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-| 46271138 | Metastatic leiomyosarcoma | Observation | Morph Abnormality | SNOMED | Maps to | 40482829 | Leiomyosarcoma | Condition | Disorder | SNOMED |
-| 46271138 | Metastatic leiomyosarcoma | Observation | Morph Abnormality | SNOMED | Maps to | 36769180 | Metastasis | Measurement | Metastasis | Cancer Modifier |
-
----
 
 ## NAACCR Mapping Logic
 
