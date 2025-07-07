@@ -62,13 +62,12 @@ Table 3 outlines the pairs of Standard Concept (S), non-Standard Concept (NULL) 
 
 |Category|dev_onco|devv5|Difference (absoulte)|Difference (percent)|
 |---|---|---|---|---|
-|C-C|1606830|1599309|7521|0,00470265596|
-|C-S|67790443|67662364|128079|0,001892913467|
+|C-C|1599176|1599310|-134|-0,00008378613277|
+|C-S|67662765|67662377|388|0,000005734353672|
 |C-NULL|724|724|0|0|
 |S-C|177325|177391|-66|-0,0003720594619|
-|S-S|31264790|31266150|-1360|-0,00004349752048|
-|NULL-S|90|123|-33|-0,2682926829|
-|NULL-NULL|NULL|1|-1|-1|
+|S-S|31264752|31266150|-1398|-0,00004471289238|
+|NULL-S|90|110|-20|-0,1818181818|
 
 Table 3. Concept_ancestor difference among schemas
 
