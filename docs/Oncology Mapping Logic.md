@@ -41,10 +41,7 @@ Mappings are grouped by transformation patterns according to SNOMED source domai
 
 ### 1. Post-coordination of Measurement Concepts: Measurement → Measurement + Meas Value
 
-**Mapping Logic**
 Some SNOMED Measurement concepts encode both the test and its qualitative result. These are split into measurement + result using post-coordination.
-
-**Example:**
 
 | source\_concept\_id | source\_concept\_name                 | source\_domain\_id | relationship\_id | target\_concept\_id | target\_concept\_name        | target\_domain\_id |
 |---|---|---|---|---|---|---|
@@ -63,10 +60,7 @@ Some SNOMED Measurement concepts encode both the test and its qualitative result
 
 ### 2. Domain Reassignment: Observation → Condition
 
-**Mapping Logic**
 Many concepts originally categorized under Observation in SNOMED are clinically interpreted as conditions. This mapping pattern corrects the semantic domain for use in clinical staging or diagnosis.
-
-**Example:**
 
 | source\_concept\_id | source\_concept\_name | source\_domain\_id | relationship\_id | target\_concept\_id | target\_concept\_name | target\_domain\_id |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -74,10 +68,7 @@ Many concepts originally categorized under Observation in SNOMED are clinically 
 
 ### 3. Mapping SNOMED Staging Concepts to Cancer Modifier
 
-**Mapping Logic**
 Certain SNOMED Meas Value concepts representing general stage groupings (e.g., Stage 0, Stage 1, etc.) require mapping into the **Cancer Modifier** vocabulary to unify staging logic under AJCC-compliant architecture. This is necessary to ensure consistent staging representation across data sources.
-
-**Example:**
 
 | source\_concept\_id | source\_concept\_name | source\_domain\_id | source\_vocabulary\_id | relationship\_id | target\_concept\_id | target\_concept\_name | target\_domain\_id | target\_vocabulary\_id |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -85,10 +76,7 @@ Certain SNOMED Meas Value concepts representing general stage groupings (e.g., S
 
 ### 4. Standardizing and Unifying Metastasis and Lymph Node Concepts
 
-**Mapping Logic**
 SNOMED metastasis-related and lymph node concepts must be uniformly mapped to standardized **Cancer Modifier** concepts, clearly specifying metastatic presence, location, or lymph node involvement. This standardization is essential for accurate patient cohorting and reliable staging analytics.
-
-**Example:**
 
 | **source\_concept\_id** | **source\_concept\_code** | **source\_concept\_name** | **source\_domain\_id** | **source\_vocabulary\_id** | **source\_concept\_class\_id** | **relationship\_id** | **target\_concept\_id** | **target\_concept\_code** | **target\_concept\_name** | **target\_domain\_id** | **target\_vocabulary\_id** | **target\_concept\_class\_id** |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -106,7 +94,6 @@ SNOMED metastasis-related and lymph node concepts must be uniformly mapped to st
 
 #### a. Metastatic Teratoma
 
-**Mapping Logic**
 Presence of 'Metastasis' part indicates that teratoma is malignant.
 
 | source_concept_id | source_concept_name | source_domain_id | relationship_id | target_concept_id | target_concept_name | target_domain_id |
@@ -116,7 +103,6 @@ Presence of 'Metastasis' part indicates that teratoma is malignant.
 
 #### b. Loss of source_concept diagnostic context in SNOMED to Cancer Modifier mapping
 
-**Mapping Logic**
 To map SNOMED concepts that describe manifestations of cancer (e.g., metastases, nodal spread, distant involvement) into unified Cancer Modifier targets to reduce concept redundancy. 
 
 * “Metastasis” concept in Cancer Modifier is used to absorb a wide range of SNOMED Condition/Observation terms that imply the presence of metastases. 
@@ -128,7 +114,6 @@ To map SNOMED concepts that describe manifestations of cancer (e.g., metastases,
 
 #### c. Non-metastatic Cancer
 
-**Mapping Logic**
 To destandartize excessive SNOMED concepts that describe complex oncology terminology. Concepts describing non-metastatic cancers should ideally be post-coordinated (Maps to+Maps to value) into: 
 
 * SNOMED Condition concept representing the primary malignancy (e.g., malignant neoplasm of prostate), 
@@ -143,7 +128,6 @@ To destandartize excessive SNOMED concepts that describe complex oncology termin
 
 #### d. Number of lymph nodes containing micrometastases in excised specimen
 
-**Mapping Logic**
 * SNOMED concepts referring to quantitative pathology findings (e.g., number of lymph nodes with micrometastases) should be mapped to specific Cancer Modifier concepts that preserve this detail. 
 * To capture granular histopathological attributes of lymph node involvement for staging and prognostic analysis. 
 * Concepts representing count-based or histologic micrometastatic evidence should not be reduced to general spread concepts, which lose interpretive specificity. 
@@ -154,7 +138,6 @@ To destandartize excessive SNOMED concepts that describe complex oncology termin
 
 #### e. Non-Hodgkin lymphoma of central nervous system metastatic to lymph node of lower limb
 
-**Mapping Logic**
 * SNOMED concepts that describe metastatic spread of lymphomas should retain both: 
 * * The correct lymphoma subtype (e.g., Non-Hodgkin’s lymphoma), 
 * * And the fact of spread to Lymph Node.
@@ -169,7 +152,6 @@ To destandartize excessive SNOMED concepts that describe complex oncology termin
 
 #### f. Materno-fetal metastatic malignant melanoma
 
-**Mapping Logic**
 The concept Materno-fetal metastatic malignant melanoma is mapped only to:  
 * A general Condition (Malignant melanoma) 
 * And a general Cancer Modifier (Metastasis)
@@ -181,7 +163,6 @@ The concept Materno-fetal metastatic malignant melanoma is mapped only to:
 
 #### g. Regional lymph node metastasis present
 
-**Mapping Logic**
 * SNOMED concepts indicating the presence of regional or distant lymph node metastases should be mapped exclusively to Cancer Modifier concepts (e.g., Distant spread to lymph node or Regional spread to lymph node.
 * Laterality have not be taken into account (right, left, bilateral does not required for cohort building)
 
@@ -194,7 +175,6 @@ The concept Materno-fetal metastatic malignant melanoma is mapped only to:
 
 ### Handling of Duplicate or Contextual TNM Values
 
-**Mapping Logic**
 When mapping NAACCR Value concepts to **Cancer Modifier**, identical staging strings (e.g., cM0, pTis, cN0) can appear under different NAACCR Variables, such as TNM Clin M or TNM Path M. Despite field differences, these values often represent the same clinical or pathological assertion.
 
 Mapping must prioritize clinical semantics over field origin, assigning a single OMOP standard concept per staging meaning. This ensures AJCC-compliant logic and avoids creating invalid or redundant Cancer Modifier entries.
@@ -237,9 +217,8 @@ Unlike M0, ‘pM1’ is a valid AJCC category for histologically confirmed metas
 
 Although this value appears under both TNM Clin N and TNM Path N, it semantically represents clinical staging. If no histological confirmation of lymph node status is available (e.g., no lymph node dissection), then even entries under TNM Path N using cN0 must be interpreted as clinical in nature. Mapping both entries to the AJCC/UICC clinical N0 Category avoids semantic errors like falsely assuming pathological confirmation of node status, which is critical for accurate cohort stratification and survival analysis.
 
-#### e. Mapping Logic for cN0m± / pN0m± (Molecular assessment of regional lymph nodes) NAACCR Values**
+#### e. cN0m± / pN0m± (Molecular assessment of regional lymph nodes) NAACCR Values**
 
-**Mapping Logic:**
 NAACCR Value concepts with additional molecular (mol+/mol-) or histological (i+/i-) specifications describe the detection of isolated tumor cells (ITCs) in regional lymph nodes via molecular or histological methods, respectively. They are fundamentally distinct from distant metastases. Therefore, mapping these concepts to the general "Metastasis" cancer modifier concept is semantically incorrect.
 
 | **source\_concept\_id** | **source\_concept\_code** | **source\_concept\_name** | **source\_domain\_id** | **source\_vocabulary\_id** | **source\_concept\_class\_id** | **relationship\_id** | **target\_concept\_id** | **target\_concept\_code** | **target\_concept\_name** |
@@ -254,7 +233,7 @@ NAACCR Value concepts with additional molecular (mol+/mol-) or histological (i+/
 * **Clinical stage.** AJCC 8 (2016) abolished the use of (mol±) suffixes in clinical staging; NAACCR subsequently dropped these codes. Therefore, both `cN0m+` and `cN0m-` are mapped to the general clinical N0 concept (1634145) to preserve valid analytics, even though `cN0m+` is still erroneously "Standard/Valid" in Athena.
 * **Pathologic stage.** AJCC retains (mol+) for pathology. `pN0m+` is mapped to the specific `pN0(mol+)` concept (1633485) to keep the molecular detail. There is no `pN0(mol-)` concept in Cancer Modifier; `pN0m-` therefore maps to the broader `pN0` (1635597). Creating a `pN0(mol-)` concept would achieve one-to-one coverage but is not critical for cohort logic: both `pN0` and `pN0(mol-)` represent “no metastatic involvement” of nodes - the only difference is documentation of additional testing.
 
-#### f. Mapping Logic for cN0i± / pN0(i±) (Immunohistochemical assessment of regional lymph nodes) NAACCR Values**
+#### f. cN0i± / pN0(i±) (Immunohistochemical assessment of regional lymph nodes) NAACCR Values**
 
 | **source\_concept\_id** | **source\_concept\_code** | **source\_concept\_name** | **source\_domain\_id** | **source\_vocabulary\_id** | **source\_concept\_class\_id** | **relationship\_id** | **target\_concept\_id** | **target\_concept\_code** | **target\_concept\_name** |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -269,11 +248,10 @@ NAACCR Value concepts with additional molecular (mol+/mol-) or histological (i+/
 
 ---
 
-## LOINC
+## LOINC Mapping Logic
 
 ### Pathological M1 LOINC Codes
 
-**Mapping Logic**
 
 LOINC code beginning with 'P' refers to a pathological M1 category (specifically P1a, P1b, P1c, or P1d).
 
@@ -285,8 +263,6 @@ LOINC code beginning with 'P' refers to a pathological M1 category (specifically
 |46237475|LA21838-0|P1d|Maps to|1635373|p-AJCC/UICC-M1d|AJCC/UICC pathological M1d Category|Cancer Modifier|
 
 ## Absence of Precise LOINC Categories
-
-**Mapping Logic**
 
 LOINC codes should be mapped to a more general entity when a precise, exact match is not available in the target vocabulary.
 
@@ -319,8 +295,6 @@ This multi-faceted mapping approach, using the `Maps to` relationship, allows fo
 
 ### Connective, Subcutaneous and other Soft Tissues
 
-**Mapping Logic**
-
 For source concepts that describe neoplasms involving a combination of connective, subcutaneous, and/or soft tissues (e.g., "Ewing sarcoma of connective, Subcutaneous and other soft tissues, NOS"), a direct, fully equivalent target concept may not exist. In such cases, the mapping prioritizes a single target concept based on the following hierarchical order:
 
 1. If a target concept specifying "**Connective tissue**" exists for the given neoplasm, **it takes the highest priority**.
@@ -336,11 +310,9 @@ For source concepts that describe neoplasms involving a combination of connectiv
 
 ---
 
-## Cancer Modifier
+## Cancer Modifier Mapping Logic
 
 ### Prostate Weight
-
-**Mapping Logic**
 
 Measurements related to the dimensions, weight, or size of an organ (e.g., "Prostate Weight") must be hierarchically connected (via an "Is a" relationship) to a corresponding anatomical "[Organ] Feature" concept. 
 
@@ -350,11 +322,9 @@ Measurements related to the dimensions, weight, or size of an organ (e.g., "Pros
 
 ---
 
-## HCPCS
+## HCPCS Mapping Logic
 
 ### Oncology Disease Status
-
-**Mapping Logic**
 
 When an HCPCS code encompasses a detailed oncology concept describing disease status, including specific cancer types, stages, and other characteristics (e.g., "Oncology; disease status; invasive female breast cancer..."), and a direct, singular equivalent is not available in the target vocabularies, a multi-faceted mapping approach is employed to maximize patient cohort inclusion.
 
