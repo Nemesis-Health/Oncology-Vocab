@@ -29,7 +29,7 @@ Just delete it for now.
 
 7. Run [`generic_update()`](https://github.com/OHDSI/Vocabulary-v5.0/blob/master/working/generic_update.sql)
 
-8. Run [`QA tests`](https://github.com/OHDSI/Vocabulary-v5.0/tree/a9bdf5efd77208110c6275407c718b389e21010e/working/packages/QA_TESTS)
+8. Run [`qa_tests.check_stage_tables ()`]([https://github.com/OHDSI/Vocabulary-v5.0/tree/a9bdf5efd77208110c6275407c718b389e21010e/working/packages/QA_TESTS](https://github.com/OHDSI/Vocabulary-v5.0/blob/4e371227ce73f35c8b6a5d554461a2f10b843ad3/working/packages/QA_TESTS/create_qa_tests.sql#L624))
 
 9. Run [`mappings_change_lookup.sql`](https://github.com/Nemesis-Health/Oncology-Vocab/blob/onco-vocabulary-refresh/sql/Oncology%20Unified%20Load%20Stage/Tests/mappings_change_lookup.sql) to look for changes in mappings
 
