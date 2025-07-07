@@ -68,6 +68,7 @@ Table 3 outlines the pairs of Standard Concept (S), non-Standard Concept (NULL) 
 |S-C|177325|177391|-66|-0,0003720594619|
 |S-S|31264752|31266150|-1398|-0,00004471289238|
 |NULL-S|90|110|-20|-0,1818181818|
+|**Total**|**100704832**|**100706062**|**-1230**|**-0,00001221376326**|
 
 Table 3. Concept_ancestor difference among schemas
 
