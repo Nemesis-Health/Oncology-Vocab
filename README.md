@@ -12,6 +12,7 @@ This repository contains scripts, reference tables, and validation notebooks use
 | `sql/` | Parameterized SQL files (`load_stage.sql`, source tables DDL, QA queries). |
 | `python/` | Jupyter notebooks and Python helpers for data validation and reporting. |
 | `docs/` | Markdown guides (mapping rules, destandardization SOP, release notes). |
+| `vocabularies/` | ZIP Archive with refreshed vocabularies |
 
 ---
 
