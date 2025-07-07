@@ -1,11 +1,8 @@
 # Metastasis Mapping Logic 
 This guidance describes how to map source terms that mention metastases to standard concepts in OHDSI Standardized Vocabularies, using: 
 
-**SNOMED CT (or ICD-O-3 when no appropriate term in SNOMED CT)** for the neoplasm/histology axis (Condition domain) 
-
-	AND 
-    
-**Cancer Modifier** Metastasis concepts for the metastasis axis (Measurement domain). 
+* **SNOMED CT (or ICD-O-3 when no appropriate term in SNOMED CT)** for the neoplasm/histology axis (Condition domain)    
+* **Cancer Modifier** Metastasis concepts for the metastasis axis (Measurement domain). 
 
 **Goal:** Create mappings that are as specific as the source allows but never add information that is not present. 
 
