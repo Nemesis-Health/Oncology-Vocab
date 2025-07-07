@@ -513,7 +513,6 @@ VALUES
   (40479814,'Number of lymph nodes containing micrometastases in excised specimen','Measurement','SNOMED','Observable Entity','S','444511005',DATE '2010-01-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',36768460,'Lymph Nodes with Micrometastases','Measurement','Cancer Modifier','Nodes','S','OMOP4998136',DATE '2020-09-23',DATE '2099-12-31',NULL),
   (4298553,'Oat cell carcinoma','Observation','SNOMED','Morph Abnormality',NULL,'76817009',DATE '2002-01-31',DATE '2024-02-01','U','Maps to','skos:exactMatch','1.0',42513024,'Neoplasm defined only by histology: Oat cell carcinoma','Condition','ICDO3','ICDO Condition','S','8042/3-NULL',DATE '2015-09-18',DATE '2099-12-31',NULL),
   (4226108,'Papillary carcinoma, solid','Observation','SNOMED','Morph Abnormality',NULL,'421980000',DATE '2006-07-31',DATE '2023-12-01','D','Maps to','skos:exactMatch','1.0',4093456,'Papillary carcinoma','Observation','SNOMED','Morph Abnormality','S','25910003',DATE '2002-01-31',DATE '2099-12-31',NULL),
-  (4147096,'Pediatric oncology department','Observation','SNOMED','Location',NULL,'309948006',DATE '2002-01-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',4138940,'Admission to pediatric oncology department','Observation','SNOMED','Procedure','S','305390000',DATE '2002-01-31',DATE '2099-12-31',NULL),
   (4154265,'Presence of direct invasion by primary malignant neoplasm to lymphatic vessel and/or small blood vessel','Observation','SNOMED','Observable Entity','S','371512006',DATE '2002-07-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',36768891,'Lymphovascular Invasion (LVI)','Measurement','Cancer Modifier','Extension/Invasion','S','OMOP4998568',DATE '2020-09-23',DATE '2099-12-31',NULL),
   (4245252,'Prostate specific antigen above reference range','Measurement','SNOMED','Clinical Finding','S','396152005',DATE '2003-07-31',DATE '2099-12-31',NULL,'Maps to value','skos:exactMatchValue','1.0',4084765,'Above reference range','Meas Value','SNOMED','Qualifier Value','S','281302008',DATE '2002-01-31',DATE '2099-12-31',NULL),
   (4245252,'Prostate specific antigen above reference range','Measurement','SNOMED','Clinical Finding','S','396152005',DATE '2003-07-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',4272032,'Prostate specific antigen measurement','Measurement','SNOMED','Procedure','S','63476009',DATE '2002-01-31',DATE '2099-12-31',NULL),
@@ -521,7 +520,6 @@ VALUES
   (37163889,'R1','Meas Value','SNOMED','Qualifier Value','S','1222639002',DATE '2022-07-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',1633801,'R1: Microscopic residual tumor','Measurement','Cancer Modifier','Staging/Grading','S','R1',DATE '2022-05-09',DATE '2099-12-31',NULL),
   (37163890,'R2','Meas Value','SNOMED','Qualifier Value','S','1222640000',DATE '2022-07-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',1634484,'R2: Macroscopic residual tumor','Measurement','Cancer Modifier','Staging/Grading','S','R2',DATE '2022-05-09',DATE '2099-12-31',NULL),
   (4311117,'Radiation-induced disorder','Condition','SNOMED','Disorder',NULL,'85983004',DATE '2002-01-31',DATE '2023-07-31','U','Maps to','skos:exactMatch','1.0',1076111,'Effect of ionizing radiation','Condition','SNOMED','Clinical Finding','S','1335857004',DATE '2024-07-01',DATE '2099-12-31',NULL),
-  (4147086,'Radiotherapy department','Observation','SNOMED','Location',NULL,'309903007',DATE '2002-01-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',4202016,'Admission to radiotherapy department','Observation','SNOMED','Procedure','S','308252005',DATE '2002-01-31',DATE '2099-12-31',NULL),
   (4028717,'Refractory anemia','Observation','SNOMED','Morph Abnormality',NULL,'128845005',DATE '2002-01-31',DATE '2023-03-31','U','Maps to','skos:exactMatch','1.0',37166869,'Myelodysplastic syndrome with low blasts','Condition','SNOMED','Disorder','S','1260268001',DATE '2023-03-31',DATE '2099-12-31',NULL),
   (4163438,'Regional lymph node metastasis present','Condition','SNOMED','Clinical Finding','S','399374009',DATE '2003-07-31',DATE '2099-12-31',NULL,'Maps to value','skos:exactMatchValue','1.0',4181412,'Present','Meas Value','SNOMED','Qualifier Value','S','52101004',DATE '2002-01-31',DATE '2099-12-31',NULL),
   (4163438,'Regional lymph node metastasis present','Condition','SNOMED','Clinical Finding','S','399374009',DATE '2003-07-31',DATE '2099-12-31',NULL,'Maps to','skos:exactMatch','1.0',36769269,'Regional spread to lymph node','Measurement','Cancer Modifier','Nodes','S','OMOP4998946',DATE '2020-09-23',DATE '2099-12-31',NULL),
@@ -565,8 +563,8 @@ VALUES
 --DELETE WRONG MAPPINGS--
 -------------------------
 --onco_wg_proper_mapping_table
-delete from onco_wg_proper_mapping_table
-where concept_id IN (
+DELETE FROM dev_onco.onco_wg_proper_mapping_table
+WHERE concept_id IN (
   4003184,4013824,4013824,4012811,4012811,
   3018971,3052487,3052487,3048665,3048665,
   3001208,3046802,3035299,36303310,36716849,
@@ -576,11 +574,11 @@ where concept_id IN (
   2111226,2111224,2111225,2213285,42514447,
   42514417,4086004,3040862,21493735,21493734,
   4065512,4065512,3038857,3047564,3047364,
-  44498759) ; --42
+  44498759,4147086,4147096) ; --44
   
 --onco_wg_list_of_items_for_mapping_or_curation_mapped
-delete from onco_wg_list_of_items_for_mapping_or_curation_mapped
-where concept_id IN (
+DELETE FROM dev_onco.onco_wg_list_of_items_for_mapping_or_curation_mapped
+WHERE concept_id IN (
   4003184,4013824,4013824,4012811,4012811,
   3018971,3052487,3052487,3048665,3048665,
   3001208,3046802,3035299,36303310,36716849,
@@ -590,11 +588,11 @@ where concept_id IN (
   2111226,2111224,2111225,2213285,42514447,
   42514417,4086004,3040862,21493735,21493734,
   4065512,4065512,3038857,3047564,3047364,
-  44498759) ; --42
+  44498759,4147086,4147096) ; --44
   
 --onco_wg_proper_compact_unnested_mapping_maps_to_table
-delete from onco_wg_proper_compact_unnested_mapping_maps_to_table
-where concept_id IN (
+DELETE FROM dev_onco.onco_wg_proper_compact_unnested_mapping_maps_to_table
+WHERE concept_id IN (
   4003184,4013824,4013824,4012811,4012811,
   3018971,3052487,3052487,3048665,3048665,
   3001208,3046802,3035299,36303310,36716849,
@@ -604,23 +602,23 @@ where concept_id IN (
   2111226,2111224,2111225,2213285,42514447,
   42514417,4086004,3040862,21493735,21493734,
   4065512,4065512,3038857,3047564,3047364,
-  44498759) ; --42
+  44498759,4147086,4147096) ; --44
   
 --delete concepts that already exists with correct relationship_id = 'Histolofy of ICDO3'
 --onco_wg_proper_mapping_table
-delete from onco_wg_proper_mapping_table
-where concept_id in (36402259,36402342,36402891,36402913,36402914,36402945,36402946,36402960,36402977,36402989)
-  and target_concept_id IN (42514126,42514164,42514192,42514243,42514264,42514302,42514305,42514307,42514374,37167742) ; --10
+DELETE FROM dev_onco.onco_wg_proper_mapping_table
+WHERE concept_id IN (36402259,36402342,36402891,36402913,36402914,36402945,36402946,36402960,36402977,36402989)
+  AND target_concept_id IN (42514126,42514164,42514192,42514243,42514264,42514302,42514305,42514307,42514374,37167742) ; --10
   
 --onco_wg_list_of_items_for_mapping_or_curation_mapped
-delete from onco_wg_list_of_items_for_mapping_or_curation_mapped
-where concept_id in (36402259,36402342,36402891,36402913,36402914,36402945,36402946,36402960,36402977,36402989)
-  and target_concept_id IN (42514126,42514164,42514192,42514243,42514264,42514302,42514305,42514307,42514374,37167742) ; --10
+DELETE FROM dev_onco.onco_wg_list_of_items_for_mapping_or_curation_mapped
+WHERE concept_id IN (36402259,36402342,36402891,36402913,36402914,36402945,36402946,36402960,36402977,36402989)
+  AND target_concept_id IN (42514126,42514164,42514192,42514243,42514264,42514302,42514305,42514307,42514374,37167742) ; --10
   
 --onco_wg_proper_compact_unnested_mapping_maps_to_table
-delete from onco_wg_proper_compact_unnested_mapping_maps_to_table
-where concept_id in (36402259,36402342,36402891,36402913,36402914,36402945,36402946,36402960,36402977,36402989)
-  and target_concept_id IN (42514126,42514164,42514192,42514243,42514264,42514302,42514305,42514307,42514374,37167742) ; --10
+DELETE FROM dev_onco.onco_wg_proper_compact_unnested_mapping_maps_to_table
+WHERE concept_id IN (36402259,36402342,36402891,36402913,36402914,36402945,36402946,36402960,36402977,36402989)
+  AND target_concept_id IN (42514126,42514164,42514192,42514243,42514264,42514302,42514305,42514307,42514374,37167742) ; --10
 
 --delete LOINC procedures   
 DELETE FROM onco_wg_proper_mapping_table
