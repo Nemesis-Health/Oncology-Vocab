@@ -5,12 +5,12 @@ This document outlines the mapping logic for oncology vocabularies. The goal of 
 ## Key Mapping Principles
 
 ### Oncologic Conditions
-* All concepts representing **oncologic conditions** (e.g., "Breast Cancer," "Lung Neoplasm") must be mapped to the **Condition** domain.
+* All concepts representing **oncologic conditions** (e.g., "Breast Cancer", "Lung Neoplasm") must be mapped to the **Condition** domain.
 * If a concept has lexical equivalents across multiple domains (e.g., SNOMED Observation, ICDO3 Condition), the **Condition** domain takes precedence, regardless of vocabulary priority.
 **Note!** Morph Abnormalities **can only be mapped** to other Morph Abnormalities, and **cannot be mapped** to Conditions.
 
 ### Tumor Staging and Grading
-* All concepts related to **tumor staging and grading** (e.g., "cT4d," "IB") must be mapped to the **Measurement** domain within the **Cancer Modifier** vocabulary.
+* All concepts related to **tumor staging and grading** (e.g., "cT4d," "IB") among different vocabularies (SNOMED, LOINC, NAACCR, etc.) must be mapped to the **Measurement** domain within the **Cancer Modifier** vocabulary.
 * If the Cancer Modifier vocabulary is unavailable, **SNOMED** is the secondary target vocabulary.
 
 ### Metastasis and Tumor Dimensions
@@ -56,10 +56,10 @@ Some SNOMED Measurement concepts encode both the test and its qualitative result
 |4245252|Prostate specific antigen above reference range|Measurement|Maps to value| 4084765|Above reference range|Meas Value|
 |4331508|Cancer antigen 125 above reference range|Measurement| Maps to|4197913|CA 125 measurement| Measurement|
 |4331508| Cancer antigen 125 above reference range|Measurement|Maps to value|4084765|Above reference range|Meas Value|
-| 4245698             | Tumor metastasis to non-regional lymph nodes absent | Condition          | Maps to          | 36769243            | Distant spread to lymph node | Measurement        |
-| 4245698             | Tumor metastasis to non-regional lymph nodes absent | Condition          | Maps to value    | 9189                | Negative                     | Meas Value         |
-| 4263144             | Tumor size, largest metastasis       | Measurement        | Maps to          | 36769180            | Metastasis                   | Measurement        |
-| 4263144             | Tumor size, largest metastasis       | Measurement        | Maps to          | 36769446            | Dimension of Largest Metastasis | Measurement        |
+| 4245698| Tumor metastasis to non-regional lymph nodes absent | Condition| Maps to| 36769243| Distant spread to lymph node | Measurement|
+| 4245698| Tumor metastasis to non-regional lymph nodes absent | Condition| Maps to value| 9189| Negative| Meas Value|
+| 4263144| Tumor size, largest metastasis| Measurement| Maps to| 36769180| Metastasis| Measurement|
+| 4263144| Tumor size, largest metastasis| Measurement| Maps to| 36769446| Dimension of Largest Metastasis | Measurement|
 
 ### 2. Domain Reassignment: Observation → Condition
 
@@ -68,9 +68,9 @@ Many concepts originally categorized under Observation in SNOMED are clinically 
 
 **Example:**
 
-| source\_concept\_id | source\_concept\_name | source\_domain\_id | relationship\_id | target\_concept\_id | target\_concept\_name     | target\_domain\_id |
-| :------------------ | :-------------------- | :----------------- | :--------------- | :------------------ | :----------------------- | :----------------- |
-| 37312397            | Benign insulinoma     | Observation        | Maps to          | 4111803             | Endocrine pancreatic adenoma | Condition          |
+| source\_concept\_id | source\_concept\_name | source\_domain\_id | relationship\_id | target\_concept\_id | target\_concept\_name | target\_domain\_id |
+| --- | --- | --- | --- | --- | --- | --- |
+| 37312397| Benign insulinoma| Observation| Maps to| 4111803| Endocrine pancreatic adenoma | Condition|
 
 ### 3. Mapping SNOMED Staging Concepts to Cancer Modifier
 
@@ -80,8 +80,8 @@ Certain SNOMED Meas Value concepts representing general stage groupings (e.g., S
 **Example:**
 
 | source\_concept\_id | source\_concept\_name | source\_domain\_id | source\_vocabulary\_id | relationship\_id | target\_concept\_id | target\_concept\_name | target\_domain\_id | target\_vocabulary\_id |
-| :------------------ | :-------------------- | :----------------- | :--------------------- | :--------------- | :------------------ | :-------------------- | :----------------- | :--------------------- |
-| 4127500             | Stage 0               | Meas Value         | SNOMED                 | Maps to          | 1634946             | Stage 0               | Measurement        | Cancer Modifier        |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4127500| Stage 0| Meas Value| SNOMED| Maps to| 1634946| Stage 0| Measurement| Cancer Modifier|
 
 ### 4. Standardizing and Unifying Metastasis and Lymph Node Concepts
 
@@ -157,7 +157,8 @@ To destandartize excessive SNOMED concepts that describe complex oncology termin
 **Mapping Logic**
 * SNOMED concepts that describe metastatic spread of lymphomas should retain both: 
 * * The correct lymphoma subtype (e.g., Non-Hodgkin’s lymphoma), 
-* * And the location of spread (e.g., lymph node of lower/upper limb). 
+* * And the fact of spread to Lymph Node.
+**Note!** This is a temporary decision. In the future, more detailed concepts regarding Lymph Node Spread will be populated.
 * To capture specific lymphoma types whenever available, to support more precise cohort stratification and avoid overgeneralization. 
 * Avoid assumptions about primary tumor location when the source concept does not specify it explicitly.
 
@@ -188,10 +189,6 @@ The concept Materno-fetal metastatic malignant melanoma is mapped only to:
 | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | 4257442 | Right regional lymph node metastasis present | Condition | SNOMED | Maps to | 36769269 | Regional spread to lymph node | Measurement | Cancer Modifier |
 | 4163438 | Regional lymph node metastasis present | Condition | SNOMED | Maps to | 36769269 | Regional spread to lymph node | Measurement | Cancer Modifier |
-
-
----
-
 
 ## NAACCR Mapping Logic
 
@@ -272,6 +269,37 @@ NAACCR Value concepts with additional molecular (mol+/mol-) or histological (i+/
 
 ---
 
+## LOINC
+
+### Pathological M1 LOINC Codes
+
+**Mapping Logic**
+
+LOINC code beginning with 'P' refers to a pathological M1 category (specifically P1a, P1b, P1c, or P1d).
+
+|source_concept_id|source_concept_code|source_concept_name|relationship_id|target_concept_id|target_concept_code|target_concept_name|target_vocabulary_id|
+|---|---|---|---|---|---|---|---|
+|46237474|LA21835-6|P1a|Maps to|1633518|p-AJCC/UICC-M1a|AJCC/UICC pathological M1a Category|Cancer Modifier|
+|46237066|LA21836-4|P1b|Maps to|1634093|p-AJCC/UICC-M1b|AJCC/UICC pathological M1b Category|Cancer Modifier|
+|46238003|LA21837-2|P1c|Maps to|1635338|p-AJCC/UICC-M1c|AJCC/UICC pathological M1c Category|Cancer Modifier|
+|46237475|LA21838-0|P1d|Maps to|1635373|p-AJCC/UICC-M1d|AJCC/UICC pathological M1d Category|Cancer Modifier|
+
+## Absence of Precise LOINC Categories
+
+**Mapping Logic**
+
+LOINC codes should be mapped to a more general entity when a precise, exact match is not available in the target vocabulary.
+
+|source_concept_id|source_concept_code|source_concept_name|relationship_id|target_concept_id|target_concept_code|target_concept_name|target_vocabulary_id|
+|---|---|---|---|---|---|---|---|
+|46237995|LA21840-6|P1m|Maps to|1635505|p-AJCC/UICC-M1|AJCC/UICC pathological M1 Category|Cancer Modifier|
+|46237078|LA21839-8|P1e|Maps to|1635505|p-AJCC/UICC-M1|AJCC/UICC pathological M1 Category|Cancer Modifier|
+|46237075|LA21878-6|M1e|Maps to|1635142|AJCC/UICC-M1|AJCC/UICC M1 Category|Cancer Modifier|
+|46237996|LA21841-4|P1m1|Maps to|1635505|p-AJCC/UICC-M1|AJCC/UICC pathological M1 Category|Cancer Modifier|
+|46237063|LA21821-6|N1m|Maps to|1634434|AJCC/UICC-N1|AJCC/UICC N1 Category|Cancer Modifier|
+
+---
+
 ## ICDO3 Mapping Logic
 
 ### ICDO3 to Conditions + OMOP Genomic mappings
@@ -310,7 +338,7 @@ For source concepts that describe neoplasms involving a combination of connectiv
 
 ## Cancer Modifier
 
-### Prostate Wieght
+### Prostate Weight
 
 **Mapping Logic**
 
@@ -323,6 +351,8 @@ Measurements related to the dimensions, weight, or size of an organ (e.g., "Pros
 ---
 
 ## HCPCS
+
+### Oncology Disease Status
 
 **Mapping Logic**
 
