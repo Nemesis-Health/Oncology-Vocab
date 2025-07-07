@@ -35,7 +35,7 @@ Table 2 outlines target domain changes withing vocabularies (HCPCD, ICDO3, LOINC
 |SNOMED|Measurement|Condition/Measurement|8|
 |SNOMED|Condition|Condition/Measurement|50|
 |SNOMED|No mapping|Condition|4|
-|SNOMED|No mapping|Observation|12|
+|SNOMED|No mapping|Observation|10|
 |SNOMED|Procedure|Measurement/Procedure|1|
 |SNOMED|Procedure|Observation/Procedure|1|
 |SNOMED|Meas Value|Measurement|186|
