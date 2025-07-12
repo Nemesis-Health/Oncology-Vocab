@@ -14,7 +14,7 @@ This document outlines the mapping logic for oncology vocabularies. The goal of 
 * If the Cancer Modifier vocabulary is unavailable, **SNOMED** is the secondary target vocabulary.
 
 ### Metastasis and Tumor Dimensions
-* Concepts representing **metastasis, lymph node involvement, and tumor/metastasis dimensions** must be mapped to the **Measurement** domain within the **Cancer Modifier** vocabulary.
+* Concepts representing **metastasis, lymph node involvement, and tumor/metastasis dimensions** must be mapped to the **Measurement** domain within the **Cancer Modifier** vocabulary. For details, plesae look at the separate [Metastasis Mapping Logic](https://github.com/Nemesis-Health/Oncology-Vocab/blob/onco-vocabulary-refresh/docs/Metastasis%20Mapping%20Logic.md) documentation.
 
 ### Genomic Abnormalities
 * All concepts related to **genetic abnormalities** must be mapped to both **SNOMED Condition** and the **OMOP Genomic Measurement** domain, using the relationship `relationship_id = Maps to`.
